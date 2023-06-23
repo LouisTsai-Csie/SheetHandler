@@ -34,8 +34,9 @@ class dataHandler:
         return f'{start}:{end}'
     
     def getCurrentPosition(self, row, col):
+        col += 1
         if col>=len(self.alphaList):
-            return self.alphaList[col//26] + self.alphaList[col%26] + str(row)
+            return self.alphaList[col//26] + self.alphaList[col%26] + str(row) 
         return self.alphaList[col%26] + str(row)
     
 
