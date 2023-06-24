@@ -28,7 +28,7 @@ class dataInput(dataHandler):
         for i in range(partBegin, partEnd):
             itemName = str(content[i][1]).upper().replace(' ','')
             if itemName not in tartgetItem: continue
-            self.baseCase[itemName] = float(content[i][3])
+            self.baseCase[itemName] = float(content[i][3]) if len(content[i][3]) else 0.0
     
     def getIncomeCase(self):
         incomecase = int(self.content[1][1])

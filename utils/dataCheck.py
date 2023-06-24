@@ -9,9 +9,9 @@ class dataCheck(dataHandler):
         self.content = []
     
     def regex(self, s):
-        negative = '(^-?0\.[0-9]*[1-9]+[0-9]*$)|(^-?[1-9]+[0-9]*((\.[0-9]*[1-9]+[0-9]*$)|(\.[0-9]+)))|(^-?[1-9]+[0-9]*$)|(^0$){1}'
-        if not re.match(negative, s): return False
-        return True
+        negative = '^-?\d+(\.\d+)?$' #'(^-?0\.[0-9]*[1-9]+[0-9]*$)|(^-?[1-9]+[0-9]*((\.[0-9]*[1-9]+[0-9]*$)|(\.[0-9]+)))|(^-?[1-9]+[0-9]*$)|(^0$){1}'
+        if re.match(negative, s): return True
+        return False
 
     def regexChecker(self, s):
         if not len(s): return True
