@@ -3,10 +3,15 @@ from utils.dataHandler import dataHandler
 import re
 
 class dataCheck(dataHandler):
-    def __init__(self, url=None):
+    def __init__(self, url=None, area=None):
         super().__init__(url)
+        self.area = area
         self.errorMessage = ''
         self.content = []
+        self.columnNum = {
+            "Global": [0, 10, 20, 20, 5, 5, 20, 10],
+            "Taiwan": [0,  8, 22, 22, 8, 4, 16]
+        }
     
     def regex(self, s):
         negative = '^-?\d+(\.\d+)?$' #'(^-?0\.[0-9]*[1-9]+[0-9]*$)|(^-?[1-9]+[0-9]*((\.[0-9]*[1-9]+[0-9]*$)|(\.[0-9]+)))|(^-?[1-9]+[0-9]*$)|(^0$){1}'
@@ -54,12 +59,17 @@ class dataCheck(dataHandler):
 
     def checkColumn(self, worksheet):
         self.content = worksheet.get_all_values()
-        return True
+        index = int(self.content[1][1])
+        colArr = self.columnNum['Global'] if self.area == 'GLOBAL' else self.columnNum['Taiwan']
+        return colArr[index]*4+2 == len(self.content[0])
 
     def handleDataCheck(self):
         for worksheet in self.workSheetList:
             self.errorMessage += f'<{worksheet.title}>\n\n'
-            if not self.checkColumn(worksheet): continue
+            if not self.checkColumn(worksheet):
+                self.errorMessage += 'Invalid Column Number!!!\n'
+                self.errorMessage += '=================\n\n'    
+                continue
 
             result = self.handleWorksheetContent()
             # print(f'worksheet: {worksheet.title} result={result}')

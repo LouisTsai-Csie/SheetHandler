@@ -15,7 +15,8 @@ class Helper:
         self.responseMessage = ''
 
     def handleDataCorrection(self):
-        self.handler = dataCheck(self.url)
+        area = 'GLOBAL' if self.data['area']=='Global' else 'TAIWAN'
+        self.handler = dataCheck(self.url, area)
         result = self.handler.getDataCheckResult()
         self.responseMessage = result
         return
