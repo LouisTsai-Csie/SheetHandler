@@ -15,13 +15,16 @@ class Helper:
         self.responseMessage = ''
 
     def handleDataCorrection(self):
-        self.handler = dataCheck(self.url)
+        area = 'GLOBAL' if self.data['area']=='Global' else 'TAIWAN'
+        self.handler = dataCheck(self.url, area)
         result = self.handler.getDataCheckResult()
         self.responseMessage = result
         return
     
     def handleDataInputCost(self):
-        self.handler = dataInput(self.url)
+        area = 'GLOBAL' if self.data['area']=='Global' else 'TAIWAN'
+        self.handler = dataInput(self.url, area)
+        self.handler.getDataInputResult()
         return
 
     def handleDataOutputSum(self):

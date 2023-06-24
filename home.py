@@ -28,6 +28,7 @@ def home():
 
     st.subheader('Link')
     url = st.text_input('Google Sheet Link')
+
     function = st.radio("Choose Functionality", 
             [
                 option.DATA_CORRECTION, 
@@ -38,12 +39,26 @@ def home():
             ]
     )
 
+    area = st.radio("Choose Area",
+            [
+                "Global",
+                "Taiwan"
+            ]
+    )
+
+    data = {
+        "area": area
+    }
+
+
     click = st.button('Confirm')
     if click:
         if not url: st.info('Please Enter URL First')
-        helper = Helper(url, function)
+        helper = Helper(url, function, data)
+
         with st.spinner('Please wait for a minute...'):
             result = helper.getResult()
+
         st.text(result)
         st.success('Data processing success!')
     return

@@ -39,7 +39,10 @@ class dataHandler:
             return self.alphaList[col//26] + self.alphaList[col%26] + str(row) 
         return self.alphaList[col%26] + str(row)
     
-
+    def updateSheet(self, worksheet, content):
+        sheetRange = self.getSheetRange(worksheet)
+        worksheet.update(sheetRange, content)
+        return
 
 
     
