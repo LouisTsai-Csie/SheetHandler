@@ -1,6 +1,6 @@
-import re
-
 from utils.dataHandler import dataHandler
+
+import re
 
 class dataCheck(dataHandler):
     def __init__(self, url=None):

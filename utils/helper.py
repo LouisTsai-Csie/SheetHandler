@@ -21,7 +21,9 @@ class Helper:
         return
     
     def handleDataInputCost(self):
-        self.handler = dataInput(self.url)
+        area = 'GLOBAL' if self.data['area']=='Global' else 'TAIWAN'
+        self.handler = dataInput(self.url, area)
+        self.handler.getDataInputResult()
         return
 
     def handleDataOutputSum(self):
