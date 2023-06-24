@@ -28,7 +28,9 @@ class Helper:
         return
 
     def handleDataOutputSum(self):
-        self.handler = dataSummation(self.url)
+        option = False if self.data['option']=='Normal' else True
+        self.handler = dataSummation(self.url, option)
+        self.handler.getDataSummationResult()
         return
 
     def handleDataConversion(self):
