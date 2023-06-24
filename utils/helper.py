@@ -36,7 +36,9 @@ class Helper:
         return
     
     def handleDataGeneration(self):
-        self.handler = dataTemplateGenerator(self.url)
+        country = self.data['country']
+        self.handler = dataTemplateGenerator(self.url, country)
+        self.handler.getTemplateGeneratorResult()
         return
 
     def getResult(self):
