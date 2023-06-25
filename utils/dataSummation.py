@@ -7,12 +7,13 @@ class dataSummation(dataHandler):
         self.content = []
 
     def handleInputData(self, row, col):
+        cost = self.content[row][col]
         if self.option: 
-            self.content[row][col].replace('.', '')
-            self.content[row][col].replace(',', '.')
+            cost = cost.replace('.', '')
+            cost = cost.replace(',', '.')
         else:
-            self.content[row][col].replace(',', '')
-        return self.content[row][col]
+            cost = cost.replace(',', '')
+        return cost
 
     def summation(self, partBegin, partEnd, inputCol, outputCol):
         partTotal, allTotal = 0, 0

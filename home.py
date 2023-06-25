@@ -11,8 +11,8 @@ def home():
         unsafe_allow_html=True
     )
 
-    with open('./src/lottie.json', 'r') as file:
-        st_lottie(json.load(file))
+    # with open('./src/lottie.json', 'r') as file:
+        # st_lottie(json.load(file))
 
     st.header('Introduction')
 
