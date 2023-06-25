@@ -15,8 +15,9 @@ class Helper:
         self.responseMessage = ''
 
     def handleDataCorrection(self):
+        option = False if self.data['option']=='Normal' else True
         area = 'GLOBAL' if self.data['area']=='Global' else 'TAIWAN'
-        self.handler = dataCheck(self.url, area)
+        self.handler = dataCheck(self.url, area, option)
         result = self.handler.getDataCheckResult()
         self.responseMessage = result
         return
@@ -28,7 +29,9 @@ class Helper:
         return
 
     def handleDataOutputSum(self):
-        self.handler = dataSummation(self.url)
+        option = False if self.data['option']=='Normal' else True
+        self.handler = dataSummation(self.url, option)
+        self.handler.getDataSummationResult()
         return
 
     def handleDataConversion(self):

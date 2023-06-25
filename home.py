@@ -11,8 +11,8 @@ def home():
         unsafe_allow_html=True
     )
 
-    with open('./src/lottie.json', 'r') as file:
-        st_lottie(json.load(file))
+    # with open('./src/lottie.json', 'r') as file:
+        # st_lottie(json.load(file))
 
     st.header('Introduction')
 
@@ -31,29 +31,37 @@ def home():
     url = st.text_input('Google Sheet Link')
 
     function = st.radio("Choose Functionality", 
-            [
-                option.DATA_CORRECTION, 
-                option.DATA_INPUT_COST, 
-                option.DATA_OUTPUT_SUM, 
-                option.DATA_CONVERSION, 
-                option.DATA_GENERATION
-            ]
+        [
+            option.DATA_CORRECTION, 
+            option.DATA_INPUT_COST, 
+            option.DATA_OUTPUT_SUM, 
+            option.DATA_CONVERSION, 
+            option.DATA_GENERATION
+        ]
     )
 
     area = st.radio("Choose Area",
-            [
-                "Global",
-                "Taiwan"
-            ]
+        [
+            "Global",
+            "Taiwan"
+        ]
     )
 
     country = st.selectbox('Choose a country',
             countryList.COUNTRY_LIST
     )
 
+    op = st.selectbox('Choose Comma and Period Type',
+        [
+            'Normal',
+            'Opposite'
+        ]
+    )
+
     data = {
         "area": area,
-        "country": country
+        "country": country,
+        "option": op
     }
 
 

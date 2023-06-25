@@ -3,8 +3,9 @@ from utils.dataHandler import dataHandler
 import re
 
 class dataCheck(dataHandler):
-    def __init__(self, url=None, area=None):
+    def __init__(self, url=None, area=None, option=None):
         super().__init__(url)
+        self.option = option
         self.area = area
         self.errorMessage = ''
         self.content = []
@@ -17,11 +18,21 @@ class dataCheck(dataHandler):
         negative = '^-?\d+(\.\d+)?$' #'(^-?0\.[0-9]*[1-9]+[0-9]*$)|(^-?[1-9]+[0-9]*((\.[0-9]*[1-9]+[0-9]*$)|(\.[0-9]+)))|(^-?[1-9]+[0-9]*$)|(^0$){1}'
         if re.match(negative, s): return True
         return False
+    
+    def handleInputData(self, s):
+        s = s.replace(" ", "")
+        s = s.replace("\n", "")
+        if self.option: 
+            s = s.replace('.', '')
+            s = s.replace(',', '.')
+        else:
+            s = s.replace(',', '')
+        return s
 
     def regexChecker(self, s):
         if not len(s): return True
-        s = s.replace(" ", "")
-        s = s.replace("\n", "")
+        s = self.handleInputData(s)
+        
         slashCount = s.count("/")
 
         if not slashCount:
