@@ -23,8 +23,9 @@ class Helper:
         return
     
     def handleDataInputCost(self):
+        option = False if self.data['option']=='Normal' else True
         area = 'GLOBAL' if self.data['area']=='Global' else 'TAIWAN'
-        self.handler = dataInput(self.url, area)
+        self.handler = dataInput(self.url, area, option)
         self.handler.getDataInputResult()
         return
 
@@ -35,7 +36,10 @@ class Helper:
         return
 
     def handleDataConversion(self):
-        self.handler = dataConversion(self.url)
+        option = False if self.data['option']=='Normal' else True
+        area = 'GLOBAL' if self.data['area']=='Global' else 'TAIWAN'
+        self.handler = dataConversion(self.url, option, area)
+        self.handler.getDataConversionResult()
         return
     
     def handleDataGeneration(self):

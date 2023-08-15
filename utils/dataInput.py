@@ -2,8 +2,9 @@ from utils.dataHandler import dataHandler
 from config.popularity import PEOPLEMULTIPLY_GL, PEOPLEMULTIPLY_TW
 
 class dataInput(dataHandler):
-    def __init__(self, url=None, area=None):
+    def __init__(self, url=None, area=None, option=None):
         super().__init__(url)
+        self.option = option
         self.area = area
         self.baseSheetNumber='6'
         self.baseSheet = self.getBaseSheet()
@@ -20,6 +21,16 @@ class dataInput(dataHandler):
         workSheet = [workSheet for workSheet in self.workSheetList if self.baseSheetNumber in workSheet.title]
         return workSheet[0]
     
+    def handleInputData(self, s):
+        s = s.replace(" ", "")
+        s = s.replace("\n", "")
+        if self.option: 
+            s = s.replace('.', '')
+            s = s.replace(',', '.')
+        else:
+            s = s.replace(',', '')
+        return s
+    
     def getBaseCase(self):
         content = self.baseSheet.get_all_values()
         partBegin, partEnd = self.getPartRange(content, 'B')
@@ -28,7 +39,9 @@ class dataInput(dataHandler):
         for i in range(partBegin, partEnd):
             itemName = str(content[i][1]).upper().replace(' ','')
             if itemName not in tartgetItem: continue
-            self.baseCase[itemName] = float(content[i][3]) if len(content[i][3]) else 0.0
+            number = self.handleInputData(content[i][3])
+            self.baseCase[itemName] = float(number) if len(number) else 0.0
+        return
     
     def getIncomeCase(self):
         incomecase = int(self.content[1][1])

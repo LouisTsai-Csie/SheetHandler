@@ -2,7 +2,7 @@ import streamlit as st
 import json
 from config import option
 from config import countryList
-from streamlit_lottie import st_lottie
+# from streamlit_lottie import st_lottie
 from utils.helper import Helper
 
 def home():

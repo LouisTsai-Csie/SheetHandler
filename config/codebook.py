@@ -1,0 +1,38 @@
+CODEBOOK = {
+    'PART A': {
+        'EARNINGS': 'earning',
+        'LIVINGSUBSIDY': 'iliving',
+        'NUTRITION/FOOD-RELATEDSUBSIDY': 'inutrition',
+        'CHILDCARERELATEDSUBSIDY': 'iCCare',
+        'CHILDBENEFITS': 'iCBenefit',
+        'FERTILITYBENEFITS': 'ifertility',
+        'EDUCATIONRELATEDSUBSIDY': 'ieducation',
+        'HOUSINGRELATEDSUBSIDY': 'ihousing',
+        'MEDICALRELATEDSUBSIDY': 'imedical',
+        'UTILITYSUBSIDY': 'iutility',
+        'TRANSPORTATIONSUBSIDY': 'itransport',
+        'SOCIALSECURITYSUBSIDY': 'isocsec',
+        'TAXSUBSIDY(E.G.,EARNEDINCOMETAXCREDIT)': 'itax',
+        'WORKRELATEDSUBSIDY(NOTTAXCREDIT)': 'iwork',
+        'UNEMPLOYMENTINSURANCEPAYMENT': 'iunempinsurance',
+        'UNEMPLOYMENTSUBSIDY': 'iunempsub',
+        'OTHERS': 'iother'
+    },
+    'PART B':{
+        'INCOMETAX': 'incometax',
+        'LOCALTAX': 'localtax',
+        'SOCIALSECURITY-PENSION':  'pension',
+        'SOCIALSECURITY-HEALTHINSURANCE':  'healthinsurance',
+        'SOCIALSECURITY-UNEMPLOYMENTINSURANCEOREMPLOYMENTINSURANCE': 'unempinsurance',
+        'SOCIALSECURITY-OTHERCONTRIBUTIONS': 'othercontribution',
+        'CHILDCARECOST(MEDIAN/AVERAGE)':  'ccarecost',
+        'SCHOOLCOST(MEDIAN/AVERAGE)':  'schlcosts',
+        'HEALTHCARECOST(MEDIAN/AVERAGE)': 'healthcost',
+        'HOUSINGRENT':  'rent',
+        'UTILITYCOST(MEDIAN/AVERAGE)':  'utilitycost',
+        'TRANSPORTATIONCOST': 'transportcost',
+        'FOOD&GROCERIES(MEDIAN/AVERAGE)':  'foodcost',
+        'TELECOMMUNICATIONSCOST(MEDIAN/AVERAGE)': 'telecost',
+        'OTHERS': 'othercosts',
+    }
+}
