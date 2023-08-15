@@ -130,16 +130,15 @@ class dataConversion(dataHandler):
             if 'STATISTICS' == worksheet.title.upper(): return worksheet
         return None
 
-    def checkDuplicate(self, content, masterList):
+    def checkDuplicate(self, content, data):
         country, county, incomecase, familytype, incomegender, case, alternative = content[0], content[1], content[2], content[3], content[4], content[5], content[6]
-        for i in range(len(masterList)):
-            if str(masterList[i]['country'])==str(country):             return False
-            if str(masterList[i]['county'])==str(county):               return False
-            if str(masterList[i]['incomecase'])==str(incomecase):       return False
-            if str(masterList[i]['familytype'])==str(familytype):       return False
-            if str(masterList[i]['incomegender'])==str(incomegender):   return False
-            if str(masterList[i]['case'])==str(case):                   return False
-            if str(masterList[i]['alternative'])==str(alternative):     return False
+        if str(data['country'])!=str(country):             return False
+        if str(data['county'])!=str(county):               return False
+        if str(data['incomecase'])!=str(incomecase):       return False
+        if str(data['familytype'])!=str(familytype):       return False
+        if str(data['incomegender'])!=str(incomegender):   return False
+        if str(data['case'])!=str(case):                   return False
+        if str(data['alternative'])!=str(alternative):     return False
         return True
     
     def updateStatSheet(self, sheet, masterList):
@@ -151,8 +150,11 @@ class dataConversion(dataHandler):
         newContent.append(title)
         data = []
         for i in range(1, len(content)):
-            if not self.checkDuplicate(content[i], masterList):
-                data.append(content[i])
+            flag = False
+            for j in range(len(masterList)):
+                if self.checkDuplicate(content[i], masterList[j]): flag = True
+                if flag: break
+            if not flag: data.append(content[i])
         for i in range(len(masterList)):
             data.append(list(masterList[i].values()))
         data.sort(key=lambda x: x[0])
