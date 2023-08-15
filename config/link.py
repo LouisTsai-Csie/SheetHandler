@@ -1,1 +1,7 @@
 BASESHEET = 'https://docs.google.com/spreadsheets/d/13_LKQoMiY-QWVmdeR9Kn5mXuQ8fTKfWcQ2AEc5spy4A/edit#gid=0'
+MASTERDATA_TAIWAN = 'https://docs.google.com/spreadsheets/d/1vQ4nqW5JpX8yIV6twVHGK1l8UFFVNW--isvvxCWNQsQ/edit#gid=0'
+MASTERDATA_GLOBAL = 'https://docs.google.com/spreadsheets/d/1nQmSvz6jXgk3wGkekVXY5dHuu5LrsB-UxlrbQq2RIu0/edit#gid=0'
+# 'https://docs.google.com/spreadsheets/d/1m-Ga45rLvRKnTzbeXJuTBNGKl1Iw3tPNvvkd47TeS3s/edit#gid=0'
+MASTERDATA_TAIWAN_ALTERNATIVE = 'https://docs.google.com/spreadsheets/d/1Hm-5G8rDBRqr1hY3SKucBRgibZqwIuGejGmhmfQO4xE/edit#gid=0'
+MASTERDATA_GLOBAL_ALTERNATIVE = 'https://docs.google.com/spreadsheets/d/1Wjv4hJFk2uG3WZKZ5agPpwKDor4dERO4QXX4dS72wA4/edit#gid=0'
+# 'https://docs.google.com/spreadsheets/d/1MrRL1j7qdQlVhqEH9Sy5M_vPolJgzxvY1mK5iumGOSs/edit#gid=0'
