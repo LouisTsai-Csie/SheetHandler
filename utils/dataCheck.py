@@ -1,4 +1,5 @@
 from utils.dataHandler import dataHandler
+from config.codebook import CODEBOOK
 
 import re
 
@@ -47,7 +48,7 @@ class dataCheck(dataHandler):
         for row in range(partBegin, partEnd+1):
             cost = self.content[row][inputCol]
             result = self.regexChecker(cost)
-            if not result: errorMessage += f'Invalid Format: {self.content[row][inputCol]} position: {self.getCurrentPosition(row+1, inputCol)}\n'
+            if not result: errorMessage += f'[Invalid Format] {self.content[row][inputCol]}, position: {self.getCurrentPosition(row+1, inputCol)}\n'
         return errorMessage
             
 
@@ -57,15 +58,57 @@ class dataCheck(dataHandler):
             result += self.check(partBegin, partEnd, col+1)
         return result
 
+    def checkItemList(self, itemNameList, part):
+        errorMessage = ''
+        columnName = list(CODEBOOK[part].keys())
+
+        if len(itemNameList)!=len(columnName): 
+            errorMessage += f'[Invalid Row Number] There is missing codebook item in {part}\n'
+            return errorMessage
+
+        index = 0
+        for item, row in itemNameList:
+            if columnName[index]!=item: 
+                errorMessage += f'[Invalid Format] {item} should be {columnName[index]}, position: {self.getCurrentPosition(row+1, 1)}\n'    
+            index += 1
+        return errorMessage
+
+
+    
+    def partColNameCheck(self, partBegin, partEnd, part):
+        errorMessage = ''
+        itemNameList = []
+
+        for row in range(partBegin, partEnd):
+            if '-' in self.content[row][0]: continue
+
+            columnNum = str(self.content[row][0])
+
+            if not columnNum.isdigit(): 
+                errorMessage += f'[Invalid Format] {columnNum}, position: {self.getCurrentPosition(row+1, 0)}\n'
+                continue
+                
+            itemName = self.content[row][1]
+            itemName = itemName.replace(" ", "")
+            itemName = itemName.upper()
+            itemNameList.append((itemName, row))
+        
+        errorMessage += self.checkItemList(itemNameList, part)
+            
+        return errorMessage
+                
+
     def handleWorksheetContent(self):
         result = ''
         ### Part A
         partBegin, partEnd = self.getPartRange(self.content, 'A')
         result += self.partCheck(partBegin, partEnd)
+        result += self.partColNameCheck(partBegin, partEnd, 'PART A')
 
         ### Part B
         partBegin, partEnd = self.getPartRange(self.content, 'B')
         result += self.partCheck(partBegin, partEnd)
+        result += self.partColNameCheck(partBegin, partEnd, 'PART B')
         return result
 
     def checkColumn(self, worksheet):
@@ -78,7 +121,7 @@ class dataCheck(dataHandler):
         for worksheet in self.workSheetList:
             self.errorMessage += f'<{worksheet.title}>\n\n'
             if not self.checkColumn(worksheet):
-                self.errorMessage += 'Invalid Column Number!!!\n'
+                self.errorMessage += '[Invalid Column Number] please remove the empty columns at the end of this worksheet\n'
                 self.errorMessage += '=================\n\n'    
                 continue
 
@@ -86,7 +129,7 @@ class dataCheck(dataHandler):
             # print(f'worksheet: {worksheet.title} result={result}')
 
             if not result: 
-                self.errorMessage += 'Correctness Check Complete. No Invalid Format\n'
+                self.errorMessage += '[Success] Correctness Check Complete.\n'
             else:
                 self.errorMessage += result
             self.errorMessage += '=================\n\n'
