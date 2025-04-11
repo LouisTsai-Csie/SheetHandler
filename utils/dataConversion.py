@@ -46,23 +46,34 @@ class dataConversion(dataHandler):
         return 
     
     def conversion(self, data, partBegin, partEnd, col ,type, option):
+        varName = None
         codebook = CODEBOOK['PART A'] if type=='A' else CODEBOOK['PART B']
         for i in range(partBegin, partEnd):
             if '-' not in self.content[i][0]: 
                 item = str(self.content[i][1]).upper().replace(' ', '')
                 varName = codebook[item]
+                programName = varName + '_prog'
                 if '/' not in self.content[i][col+2]:
                     data[varName] = self.content[i][col+2]
                     if self.content[i][col] and float(self.content[i][col+2]):
-                        programName = varName + '_prog'
+                        if str(self.content[i][col]) in data[programName]: continue
                         data[programName] += str(self.content[i][col]+';')
                 else:
                     partNum, totalNum = self.content[i][col+2].split('/')
                     num = partNum if option=='PART' else totalNum
                     data[varName] = num
                     if self.content[i][col] and float(num):
-                        programName = varName + '_prog'
+                        if str(self.content[i][col]) in data[programName]: continue
                         data[programName] += (str(self.content[i][col]) + ';')
+            else:
+                if self.content[i][col]:
+                    if str(self.content[i][col]) in data[programName]: continue
+                    programName = varName + '_prog'
+                    data[programName] += str(self.content[i][col]+';')
+                    # elif self.content[i][col]:
+                    #     programName = varName + '_prog'
+                    #     data[programName] += (str(self.content[i][col]) + ';')
+                
         return
     
     def handleMiscData(self, data, option):
