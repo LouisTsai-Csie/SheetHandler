@@ -6,6 +6,7 @@ from config.countyCode import COUNTY_CODE
 from config.transpose import TRANSPOSE_DATA_GL, TRANSPOSE_DATA_TW
 from config.codebook import CODEBOOK
 from config.link import MASTERDATA_TAIWAN, MASTERDATA_GLOBAL, MASTERDATA_TAIWAN_ALTERNATIVE, MASTERDATA_GLOBAL_ALTERNATIVE
+from datetime import datetime
 
 class dataConversion(dataHandler):
     def __init__(self, url=None, option=None ,area=None):
@@ -145,18 +146,21 @@ class dataConversion(dataHandler):
         content = sheet.get_all_values()
         title = ['country', 'county', 'incomecase', 'familytype', 'incomegender', 'case', 'alternative', 'earning', 'iliving', 'inutrition', 'iCCare', 'iCBenefit', 'ifertility', 'ieducation', 'ihousing', 'imedical', 'iutility', 'itransport', 'isocsec', 'itax', 'iwork', 'iunempinsurance', 'iunempsub', 'iother', 'totalbenefit', 
                  'incometax', 'localtax', 'pension', 'healthinsurance', 'unempinsurance', 'othercontribution', 'ccarecost', 'schlcosts', 'healthcost', 'rent', 'utilitycost', 'foodcost', 'telecost', 'transportcost', 'othercosts', 'totalexpense', 'earning_prog', 'iliving_prog', 'inutrition_prog', 'iCCare_prog', 'iCBenefit_prog', 
-                 'ifertility_prog', 'ieducation_prog', 'ihousing_prog', 'imedical_prog', 'iutility_prog', 'itransport_prog', 'isocsec_prog', 'itax_prog', 'iwork_prog', 'iunempinsurance_prog', 'iunempsub_prog', 'iother_prog', 'incometax_prog', 'localtax_prog', 'pension_prog', 'healthinsurance_prog', 'unempinsurance_prog', 'othercontribution_prog', 'ccarecost_prog', 'schlcosts_prog', 'healthcost_prog', 'rent_prog', 'utilitycost_prog', 'foodcost_prog', 'telecost_prog', 'transportcost_prog', 'othercosts_prog']
+                 'ifertility_prog', 'ieducation_prog', 'ihousing_prog', 'imedical_prog', 'iutility_prog', 'itransport_prog', 'isocsec_prog', 'itax_prog', 'iwork_prog', 'iunempinsurance_prog', 'iunempsub_prog', 'iother_prog', 'incometax_prog', 'localtax_prog', 'pension_prog', 'healthinsurance_prog', 'unempinsurance_prog', 'othercontribution_prog', 'ccarecost_prog', 'schlcosts_prog', 'healthcost_prog', 'rent_prog', 'utilitycost_prog', 'foodcost_prog', 'telecost_prog', 'transportcost_prog', 'othercosts_prog', 'timestamp']
         newContent = []
         newContent.append(title)
         data = []
+        current_timestamp = datetime.now()
+        formatted_timestamp = current_timestamp.strftime("%Y-%m-%d %H:%M:%S")
         for i in range(1, len(content)):
             flag = False
             for j in range(len(masterList)):
                 if self.checkDuplicate(content[i], masterList[j]): flag = True
                 if flag: break
-            if not flag: data.append(content[i])
+            if not flag:
+                data.append(content[i])
         for i in range(len(masterList)):
-            data.append(list(masterList[i].values()))
+            data.append(list(masterList[i].values()) + [formatted_timestamp])
         data.sort(key=lambda x: x[0])
         newContent.extend(data)
         self.updateSheet(sheet, newContent)
