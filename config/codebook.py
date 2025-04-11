@@ -30,9 +30,9 @@ CODEBOOK = {
         'HEALTHCARECOST(MEDIAN/AVERAGE)': 'healthcost',
         'HOUSINGRENT':  'rent',
         'UTILITYCOST(MEDIAN/AVERAGE)':  'utilitycost',
-        'TRANSPORTATIONCOST': 'transportcost',
         'FOOD&GROCERIES(MEDIAN/AVERAGE)':  'foodcost',
         'TELECOMMUNICATIONSCOST(MEDIAN/AVERAGE)': 'telecost',
+        'TRANSPORTATIONCOST': 'transportcost',
         'OTHERS': 'othercosts',
     }
 }
